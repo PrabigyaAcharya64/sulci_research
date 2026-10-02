@@ -29,5 +29,5 @@ class Server(http.server.ThreadingHTTPServer):
 
 if __name__ == "__main__":
     with Server(("", PORT), NoCacheHandler) as httpd:
-        print(f"Serving on http://localhost:{PORT}/knowledge/  (no-cache)")
+        print(f"Serving on http://localhost:{PORT}/  (no-cache)")
         httpd.serve_forever()

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hierarchical Spherical Deformation</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:    #FFFFFF;
+      --ink:   #1A1A1A;
+      --muted: #6B7280;
+      --new:   #C2410C;
+      --old:   #1D4ED8;
+      --rule:  #E5E7EB;
+    }
+    html, body { background: var(--bg); }
+    .reveal-viewport { background: var(--bg); }
+    .reveal { font-family: 'Inter', system-ui, sans-serif; color: var(--ink); font-size: 24px; }
+    .reveal .slides { text-align: left; }
+    /* Heading pinned top, takeaway pinned bottom, body centred between them.
+       The two flex spacers are ordered around the body so every slide shares
+       the same anchors however much content it carries. */
+    /* reveal.js writes `display` inline on the visible slide, so the flex layout
+       comes from its `display: 'flex'` config option rather than from here */
+    .reveal .slides section {
+      height: 720px; padding: 48px 60px 56px; box-sizing: border-box;
+      flex-direction: column;
+    }
+    .reveal .slides section > aside.notes { display: none; }
+    .reveal .slides section > h2 { order: 0; }
+    .reveal .slides section::before { content: ''; order: 1; flex: 1 1 0; }
+    .reveal .slides section > :not(h2):not(.takeaway) { order: 2; }
+    .reveal .slides section::after { content: ''; order: 3; flex: 1 1 0; }
+    .reveal .slides section > .takeaway { order: 4; }
+
+    .reveal h1, .reveal h2 {
+      font-family: 'Newsreader', Georgia, serif;
+      font-weight: 500; color: var(--ink);
+      text-transform: none; letter-spacing: normal; line-height: 1.1;
+    }
+    .reveal h2 { font-size: 42px; margin: 0 0 10px; }
+
+    /* equations — the spine of this deck */
+    .reveal .eq { margin: 38px 0 0; text-align: center; }
+    .reveal .eq .katex-display { margin: 0; }
+    .reveal .eq .katex { font-size: 1.38em; }
+    .reveal .eq.sm .katex { font-size: 1.08em; }
+    .reveal .eq.lead { margin-top: 70px; }
+
+    /* paper cross-reference, so every formula is traceable */
+    .reveal .ref {
+      font-family: 'IBM Plex Mono', monospace; font-size: 14px;
+      color: var(--muted); text-align: center; margin: 12px 0 0;
+    }
+    .reveal .takeaway {
+      font-family: 'Newsreader', Georgia, serif; font-size: 28px;
+      color: var(--ink); text-align: center; margin: 48px 0 0;
+    }
+    .reveal .sub { font-size: 18px; color: var(--muted); text-align: center; margin: 16px 0 0; }
+    .reveal figure { margin: 32px 0 0; text-align: center; }
+    .reveal figure svg { display: block; margin: 0 auto; }
+
+    /* title slide */
+    .reveal .title-slide h1 { font-size: 58px; text-align: center; margin: 180px 0 0; }
+    .reveal .title-slide .sub { font-size: 20px; margin-top: 26px; }
+
+    /* no decorative motion anywhere in this deck */
+    @media (prefers-reduced-motion: reduce) { .reveal .slides section { transition: none; } }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section data-markdown="slides/01-title.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/02-problem.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/03-naive-angles.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/04-tangent-plane.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/05-exp-map.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/06-length-is-angle.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/07-precession.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/08-one-freedom-left.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/09-intrinsic.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/10-composite.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/11-move-a-point.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/12-still-rigid.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/13-let-them-vary.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/14-fourier-to-sphere.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/15-parameter-fields.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/16-one-vertex.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/17-hierarchy.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/18-summary.md" data-separator-notes="^Note:"></section>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/markdown/markdown.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/plugin/notes/notes.js"></script>
+  <script src="../overview-carousel.js"></script>
+  <script>
+    Reveal.initialize({
+      plugins: [ RevealMarkdown, RevealNotes ],
+      width: 1280, height: 720,
+      display: 'flex',
+      navigationMode: 'linear',
+      transition: 'fade', transitionSpeed: 'fast',
+      controls: false, progress: false, slideNumber: false,
+      hash: true, fragments: false, loop: false
+    });
+    installOverviewCarousel(Reveal);
+
+    Reveal.addKeyBinding({ keyCode: 40, key: '↓', description: 'Next slide' },
+      () => Reveal.slide(Reveal.getIndices().h + 1, 0));
+    Reveal.addKeyBinding({ keyCode: 38, key: '↑', description: 'Prev slide' },
+      () => Reveal.slide(Math.max(0, Reveal.getIndices().h - 1), 0));
+
+    // TeX lives in data-tex attributes so markdown never touches the backslashes.
+    function renderMath(root) {
+      (root || document).querySelectorAll('[data-tex]').forEach(el => {
+        if (el.dataset.rendered) return;
+        katex.render(el.getAttribute('data-tex'), el, {
+          throwOnError: false,
+          displayMode: !el.classList.contains('inline')
+        });
+        el.dataset.rendered = '1';
+      });
+    }
+    Reveal.on('ready', () => renderMath());
+    Reveal.on('slidechanged', e => renderMath(e.currentSlide));
+  </script>
+</body>
+</html>

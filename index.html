@@ -18,8 +18,8 @@
       padding:48px 24px;
     }
     .grid{
-      display:grid; grid-template-columns:repeat(2, minmax(0,360px));
-      gap:44px; width:100%; max-width:820px;
+      display:grid; grid-template-columns:repeat(3, minmax(0,340px));
+      gap:40px; width:100%; max-width:1100px; justify-content:center;
     }
     .card{ text-decoration:none; color:inherit; display:block; }
     .thumb{
@@ -36,6 +36,7 @@
     .meta{ margin-top:16px; }
     .idx{ font-size:12px; letter-spacing:.14em; color:var(--muted); text-transform:uppercase; }
     .name{ font-size:16px; font-weight:500; margin-top:3px; }
+    @media (max-width:1100px){ .grid{ grid-template-columns:repeat(2, minmax(0,340px)); max-width:760px; } }
     @media (max-width:640px){ .grid{ grid-template-columns:1fr; max-width:380px; } }
   </style>
 </head>
@@ -53,6 +54,13 @@
       <div class="meta">
         <div class="idx">Presentation 02</div>
         <div class="name">Convolutional Neural Networks</div>
+      </div>
+    </a>
+    <a class="card" href="spherical-deformation/">
+      <img class="thumb" src="thumbnails/hsd.svg" alt="Hierarchical Spherical Deformation">
+      <div class="meta">
+        <div class="idx">Presentation 03</div>
+        <div class="name">Hierarchical Spherical Deformation</div>
       </div>
     </a>
   </div>
