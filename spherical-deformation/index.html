@@ -67,6 +67,23 @@
     .reveal figure { margin: 32px 0 0; text-align: center; }
     .reveal figure svg { display: block; margin: 0 auto; }
 
+    /* compact symbol legend / two-column comparison (optimization slides) */
+    .reveal .legend {
+      display: grid; grid-template-columns: max-content max-content max-content max-content;
+      column-gap: 18px; row-gap: 12px; align-items: baseline;
+      width: fit-content; margin: 34px auto 0; font-size: 18px; color: var(--muted);
+    }
+    .reveal .legend .k { color: var(--ink); text-align: right; }
+    .reveal .legend .v { padding-right: 34px; }
+    .reveal .legend .katex { font-size: 1.12em; }
+    .reveal .compare {
+      display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px;
+      width: 900px; margin: 34px auto 0; font-size: 19px; line-height: 1.5; color: var(--muted); text-align: center;
+    }
+    .reveal .compare b { display: block; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+    .reveal .compare .katex { font-size: 1.1em; color: var(--ink); }
+    .reveal .compare + .sub { margin-top: 30px; }
+
     /* title slide */
     .reveal .title-slide h1 { font-size: 58px; text-align: center; margin: 180px 0 0; }
     .reveal .title-slide .sub { font-size: 20px; margin-top: 26px; }
@@ -96,6 +113,22 @@
       <section data-markdown="slides/16-one-vertex.md" data-separator-notes="^Note:"></section>
       <section data-markdown="slides/17-hierarchy.md" data-separator-notes="^Note:"></section>
       <section data-markdown="slides/18-summary.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/19-what-to-optimize.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/20-sampling-points.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/21-feature-energy.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/22-distortion-energy.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/23-total-energy.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/24-residuals.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/25-squared-residuals.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/26-location-derivative.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/27-jacobians.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/28-feature-jacobian.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/29-distortion-jacobian.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/30-gradient.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/31-hessian.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/32-lm-step.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/33-update.md" data-separator-notes="^Note:"></section>
+      <section data-markdown="slides/34-optimization-loop.md" data-separator-notes="^Note:"></section>
     </div>
   </div>
 
