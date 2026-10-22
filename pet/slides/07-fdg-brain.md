@@ -5,5 +5,5 @@
 
 Note:
 From here on, one concrete example: a brain scan with FDG. We follow a single FDG
-molecule through every step on the overview slide — injection, uptake, decay,
+molecule through every step — injection, uptake, decay,
 annihilation, detection, and reconstruction.

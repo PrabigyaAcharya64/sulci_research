@@ -99,7 +99,12 @@
   .anno-btn:focus-visible { outline: 2px solid rgba(29, 78, 216, 0.55); outline-offset: 1px; }
   .anno-btn[aria-pressed="true"] { background: #EEF2FF; color: #1D4ED8; }
   .anno-btn:disabled { opacity: 0.35; cursor: default; background: transparent; }
-  .anno-swatch-btn .anno-chip { width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(0, 0, 0, 0.18); }
+  .anno-quick { width: 28px; padding: 5px; }
+  .anno-quick .anno-dot { width: 16px; height: 16px; border-radius: 50%; border: 1px solid rgba(0, 0, 0, 0.15); }
+  .anno-quick[aria-pressed="true"] { background: transparent; }
+  .anno-quick[aria-pressed="true"] .anno-dot { box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px currentColor; }
+  .anno-swatch-btn .anno-chip { width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(0, 0, 0, 0.18);
+    background: conic-gradient(#DC2626, #FACC15, #16A34A, #06B6D4, #1D4ED8, #9333EA, #DC2626); }
   .anno-pop {
     position: fixed; z-index: 46; background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 12px;
     box-shadow: 0 10px 28px rgba(16, 24, 40, 0.14); padding: 12px; font: 13px/1.3 Inter, system-ui, sans-serif; color: #1A1A1A;
@@ -475,7 +480,18 @@
       laser: btn('laser', 'Laser pointer', () => setTool('laser'), { toggle: true, key: 'R' })
     };
     sep();
-    const colorBtn = btn('<span class="anno-chip"></span>', 'Color', (b) => togglePop(colorPop, b), { cls: 'anno-swatch-btn' });
+    // pen colours always visible on the bar; one click picks the colour and the pen
+    const QUICK = [['#DC2626', 'Red'], ['#1D4ED8', 'Blue'], ['#16A34A', 'Green'], ['#1A1A1A', 'Black']];
+    const quickBtns = QUICK.map(([c, name]) => {
+      const b = btn(`<span class="anno-dot" style="background:${c}"></span>`, `Pen color: ${name}`, () => {
+        prefs.pen.color = c; savePrefs();
+        if (tool !== 'pen') setTool('pen'); else { syncChip(); syncPops(); }
+      }, { cls: 'anno-quick' });
+      b.style.color = c;
+      b.dataset.color = c;
+      return b;
+    });
+    const colorBtn = btn('<span class="anno-chip"></span>', 'More colors', (b) => togglePop(colorPop, b), { cls: 'anno-swatch-btn' });
     colorBtn.setAttribute('aria-haspopup', 'dialog');
     colorBtn.setAttribute('aria-expanded', 'false');
     const widthBtn = btn('width', 'Stroke thickness', (b) => togglePop(widthPop, b));
@@ -609,8 +625,8 @@
       prefs[t].width = Math.max(lo, Math.min(hi, w)); savePrefs(); syncPops();
     }
     function syncChip() {
-      colorBtn.querySelector('.anno-chip').style.background = prefs[drawTool()].color;
-      colorBtn.setAttribute('aria-label', `Color (${drawTool()}): ${prefs[drawTool()].color}`);
+      colorBtn.setAttribute('aria-label', `More colors (${drawTool()}): ${prefs[drawTool()].color}`);
+      quickBtns.forEach((b) => b.setAttribute('aria-pressed', String(tool === 'pen' && prefs.pen.color.toUpperCase() === b.dataset.color)));
     }
     function syncPops() {
       const t = drawTool(), p = prefs[t];
