@@ -5,7 +5,7 @@
  * Load this file BEFORE Reveal.initialize so stable slide ids can be read from
  * data-markdown before the markdown plugin clears that attribute.
  *
- * The toolbar is fixed at the left edge of the screen and always visible
+ * The toolbar is fixed at the bottom centre of the screen and always visible
  * (hidden only in the slide overview).
  *
  * Strokes are stored in slide coordinates (config width × height, e.g. 1280 × 720),
@@ -82,14 +82,14 @@
   html.anno-overview .anno-layer { display: none; }
 
   .anno-bar {
-    position: fixed; left: 14px; top: 50%; transform: translateY(-50%); z-index: 45; display: flex; flex-direction: column; align-items: center; gap: 2px;
+    position: fixed; left: 50%; bottom: 8px; transform: translateX(-50%); z-index: 45; display: flex; flex-direction: row; align-items: center; gap: 2px;
     padding: 6px; background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 12px;
     box-shadow: 0 6px 22px rgba(16, 24, 40, 0.10); font-family: Inter, system-ui, sans-serif;
     user-select: none; -webkit-user-select: none; touch-action: none;
   }
   .anno-bar[hidden] { display: none; }
   html.anno-overview .anno-bar { display: none; }
-  .anno-bar .anno-sep { width: 22px; height: 1px; background: #E5E7EB; margin: 4px 0; }
+  .anno-bar .anno-sep { width: 1px; height: 22px; background: #E5E7EB; margin: 0 4px; }
   .anno-btn {
     width: 34px; height: 34px; padding: 7px; border: 0; border-radius: 8px; background: transparent;
     color: #1A1A1A; cursor: pointer; display: grid; place-items: center; position: relative;
@@ -124,7 +124,7 @@
   .anno-menu button:hover, .anno-menu button:focus-visible { background: #F3F4F6; outline: none; }
   .anno-menu .anno-hint { padding: 8px 10px 4px; color: #9CA3AF; font-size: 12px; line-height: 1.5; border-top: 1px solid #F0F1F3; margin-top: 4px; }
   .anno-toast {
-    position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%); z-index: 47;
+    position: fixed; left: 50%; bottom: 72px; transform: translateX(-50%); z-index: 47;
     background: #1A1A1A; color: #fff; font: 13px Inter, system-ui, sans-serif; padding: 8px 14px; border-radius: 8px;
     opacity: 0; transition: opacity 260ms ease-in 1.8s; pointer-events: none; white-space: nowrap;
   }
@@ -447,7 +447,7 @@
     bar.className = 'anno-bar';
     bar.setAttribute('role', 'toolbar');
     bar.setAttribute('aria-label', 'Annotation tools');
-    bar.setAttribute('aria-orientation', 'vertical');
+    bar.setAttribute('aria-orientation', 'horizontal');
     const live_region = document.createElement('div');
     live_region.className = 'anno-sr';
     live_region.setAttribute('aria-live', 'polite');
@@ -562,9 +562,9 @@
     let openPop = null, openBtn = null;
     function placePop(p, anchor) {
       const r = anchor.getBoundingClientRect(), pr = p.getBoundingClientRect(), br = bar.getBoundingClientRect();
-      const right = br.right + 10 + pr.width < innerWidth;
-      const x = right ? br.right + 10 : br.left - 10 - pr.width;
-      const y = Math.max(8, Math.min(innerHeight - pr.height - 8, r.top + r.height / 2 - pr.height / 2));
+      // open above the toolbar, centred on the button that opened it
+      const x = Math.max(8, Math.min(innerWidth - pr.width - 8, r.left + r.width / 2 - pr.width / 2));
+      const y = Math.max(8, br.top - 10 - pr.height);
       p.style.left = x + 'px'; p.style.top = y + 'px';
     }
     function togglePop(p, anchor) {
